@@ -22,5 +22,6 @@ public class TestConfig implements CommandLineRunner{
 		
 		categoryRepository.save(c1);
 		
+		
 	}
 }
