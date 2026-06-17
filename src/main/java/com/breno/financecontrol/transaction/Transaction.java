@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import com.breno.financecontrol.category.Category;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,11 +35,6 @@ public class Transaction implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
-	
-	@PostConstruct
-	public void debug() {
-	    System.out.println("TRANSACTION ENTITY CARREGADA");
-	}
 	
 	public Transaction() {
 	}
