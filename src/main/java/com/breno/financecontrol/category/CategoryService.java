@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.breno.financecontrol.exception.BusinessException;
 import com.breno.financecontrol.exception.ResourceNotFoundException;
+import com.breno.financecontrol.transaction.TransactionRepository;
 
 @Service
 public class CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private TransactionRepository transactionRepository;
 	
 	public List<Category> findAll(){
 		return categoryRepository.findAll();
@@ -32,6 +36,18 @@ public class CategoryService {
 		} 
 		
 		return categoryRepository.save(category);
+	}
+	
+	public void delete(Long id) {
+		if (!categoryRepository.existsById(id)) {
+			throw new ResourceNotFoundException(id);
+		}
+		
+		if (transactionRepository.existsByCategoryId(id)) {
+			throw new BusinessException("Category cannot be deleted because it has transactions");
+		}
+		
+		categoryRepository.deleteById(id);
 	}
 	
 	public Category update(Long id, Category category) {
