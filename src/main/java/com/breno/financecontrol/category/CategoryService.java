@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.breno.financecontrol.exception.BusinessException;
+import com.breno.financecontrol.exception.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -20,7 +21,7 @@ public class CategoryService {
 	
 	public Category findById(Long id) {
 		Optional<Category> obj = categoryRepository.findById(id);
-		return obj.orElseThrow(() -> new RuntimeException("Category not found")); //Substituir por ResourceNotFoundException
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Category insert(Category category) {
