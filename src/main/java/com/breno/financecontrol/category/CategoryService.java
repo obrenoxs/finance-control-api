@@ -30,7 +30,30 @@ public class CategoryService {
 		if (obj.isPresent()) {
 			throw new BusinessException("Category already exists");
 		} 
-			
+		
 		return categoryRepository.save(category);
+	}
+	
+	public Category update(Long id, Category category) {
+		Category entity = findById(id);
+		
+		Optional<Category> categoryFound = categoryRepository.findByName(category.getName());
+		
+		if (categoryFound.isPresent()) {
+			
+			Category categoryFoundEntity = categoryFound.get();
+			
+			if (!categoryFoundEntity.getId().equals(entity.getId())) {
+				throw new BusinessException("Category already exists");
+			}
+		}
+		
+		updateData(entity, category);
+		
+		return categoryRepository.save(entity);
+	}
+	
+	private void updateData(Category entity, Category obj) {
+		entity.setName(obj.getName());
 	}
 }
