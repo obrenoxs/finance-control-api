@@ -2,6 +2,8 @@ package com.breno.financecontrol.transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +49,14 @@ public class TransactionService {
 		}
 		
 		return transactionRepository.save(obj);
+	}
+	
+	public List<Transaction> findAll() {
+		return transactionRepository.findAll();
+	}
+	
+	public Transaction findById(Long id) {
+		Optional<Transaction> obj = transactionRepository.findById(id);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 }
