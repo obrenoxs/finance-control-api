@@ -59,4 +59,12 @@ public class TransactionService {
 		Optional<Transaction> obj = transactionRepository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public void delete(Long id) {
+		if (!transactionRepository.existsById(id)) {
+			throw new ResourceNotFoundException(id);
+		}
+		
+		transactionRepository.deleteById(id);
+	}
 }
