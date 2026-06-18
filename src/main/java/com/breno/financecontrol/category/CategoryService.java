@@ -28,7 +28,7 @@ public class CategoryService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public Category insert(Category category) {
+	public Category create(Category category) {
 		Optional<Category> obj = categoryRepository.findByName(category.getName());
 		
 		if (obj.isPresent()) {
