@@ -23,14 +23,27 @@ public class TransactionService {
 	private CategoryRepository categoryRepository;
 	
 	public Transaction create(Transaction obj) {
-		Category category = categoryRepository.findById(obj.getCategory().getId())
-				.orElseThrow(() -> new ResourceNotFoundException(obj.getCategory().getId()));
+		Category category = validateAndGetCategory(obj);
 		
 		obj.setCategory(category);
 		
 		validateTransaction(obj);
 		
 		return transactionRepository.save(obj);
+	}
+	
+	public Transaction update(Long id, Transaction obj) {
+		Category category = validateAndGetCategory(obj);
+	
+		obj.setCategory(category);
+		
+		Transaction entity = findById(id);
+	
+		validateTransaction(obj);
+		
+		updateData(entity, obj);
+		
+		return transactionRepository.save(entity);
 	}
 	
 	public List<Transaction> findAll() {
@@ -48,6 +61,23 @@ public class TransactionService {
 		}
 		
 		transactionRepository.deleteById(id);
+	}
+	
+	private void updateData(Transaction entity, Transaction obj) {
+		entity.setDescription(obj.getDescription());
+		entity.setAmount(obj.getAmount());
+		entity.setDate(obj.getDate());
+		entity.setType(obj.getType());
+		entity.setCategory(obj.getCategory());
+	}
+	
+	private Category validateAndGetCategory(Transaction obj) {
+		if (obj.getCategory() == null) {
+		    throw new BusinessException("Transaction category is required");
+		}
+		
+		return categoryRepository.findById(obj.getCategory().getId())
+				.orElseThrow(() -> new ResourceNotFoundException(obj.getCategory().getId()));
 	}
 	
 	private void validateTransaction(Transaction obj) {
