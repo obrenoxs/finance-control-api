@@ -28,25 +28,7 @@ public class TransactionService {
 		
 		obj.setCategory(category);
 		
-		if (obj.getAmount() == null) {
-			throw new BusinessException("Transaction amount is required");
-		}
-		
-		if (obj.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-			throw new BusinessException("Amount must be greater than zero");
-		}
-		
-		if (obj.getDate() == null) {
-			throw new BusinessException("Transaction date is required");
-		}
-		
-		if (obj.getDate().isAfter(LocalDate.now())) {
-			throw new BusinessException("Transaction date cannot be in the future");
-		}
-		
-		if (obj.getType() == null) {
-			throw new BusinessException("Transaction type is required");
-		}
+		validateTransaction(obj);
 		
 		return transactionRepository.save(obj);
 	}
@@ -66,5 +48,27 @@ public class TransactionService {
 		}
 		
 		transactionRepository.deleteById(id);
+	}
+	
+	private void validateTransaction(Transaction obj) {
+		if (obj.getAmount() == null) {
+			throw new BusinessException("Transaction amount is required");
+		}
+		
+		if (obj.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+			throw new BusinessException("Amount must be greater than zero");
+		}
+		
+		if (obj.getDate() == null) {
+			throw new BusinessException("Transaction date is required");
+		}
+		
+		if (obj.getDate().isAfter(LocalDate.now())) {
+			throw new BusinessException("Transaction date cannot be in the future");
+		}
+		
+		if (obj.getType() == null) {
+			throw new BusinessException("Transaction type is required");
+		}
 	}
 }
