@@ -23,8 +23,8 @@ public class TransactionController {
 	private TransactionService transactionService;
 	
 	@PostMapping
-	public ResponseEntity<Transaction> create(@RequestBody Transaction transaction){
-		transaction = transactionService.create(transaction);
+	public ResponseEntity<Transaction> create(@RequestBody TransactionRequestDTO dto){
+		Transaction transaction = transactionService.create(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(transaction.getId()).toUri();
 		return ResponseEntity.created(uri).body(transaction);
 	}
@@ -48,9 +48,8 @@ public class TransactionController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Transaction> update(@PathVariable Long id, @RequestBody Transaction obj){
-		obj = transactionService.update(id, obj);
+	public ResponseEntity<Transaction> update(@PathVariable Long id, @RequestBody TransactionRequestDTO dto){
+		Transaction obj = transactionService.update(id, dto);
 		return ResponseEntity.ok().body(obj);
 	}
-	
 }

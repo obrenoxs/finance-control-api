@@ -22,26 +22,30 @@ public class TransactionService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	public Transaction create(Transaction obj) {
-		Category category = validateAndGetCategory(obj);
+	public Transaction create(TransactionRequestDTO dto) {
+		Transaction entity = new Transaction();
 		
-		obj.setCategory(category);
+		copyDtoToEntity(entity, dto);
 		
-		validateTransaction(obj);
+		Category category = validateAndGetCategory(dto.getCategoryId());
 		
-		return transactionRepository.save(obj);
+		entity.setCategory(category);
+		
+		validateTransaction(entity);
+		
+		return transactionRepository.save(entity);
 	}
 	
-	public Transaction update(Long id, Transaction obj) {
-		Category category = validateAndGetCategory(obj);
-	
-		obj.setCategory(category);
-		
+	public Transaction update(Long id, TransactionRequestDTO dto) {
 		Transaction entity = findById(id);
-	
-		validateTransaction(obj);
 		
-		updateData(entity, obj);
+		Category category = validateAndGetCategory(dto.getCategoryId());
+	
+		entity.setCategory(category);
+	
+		copyDtoToEntity(entity, dto);
+		
+		validateTransaction(entity);
 		
 		return transactionRepository.save(entity);
 	}
@@ -63,21 +67,20 @@ public class TransactionService {
 		transactionRepository.deleteById(id);
 	}
 	
-	private void updateData(Transaction entity, Transaction obj) {
-		entity.setDescription(obj.getDescription());
-		entity.setAmount(obj.getAmount());
-		entity.setDate(obj.getDate());
-		entity.setType(obj.getType());
-		entity.setCategory(obj.getCategory());
+	private void copyDtoToEntity(Transaction entity, TransactionRequestDTO dto) {
+		entity.setDescription(dto.getDescription());
+		entity.setAmount(dto.getAmount());
+		entity.setDate(dto.getDate());
+		entity.setType(dto.getType());
 	}
 	
-	private Category validateAndGetCategory(Transaction obj) {
-		if (obj.getCategory() == null) {
+	private Category validateAndGetCategory(Long categoryId) {
+		if (categoryId == null) {
 		    throw new BusinessException("Transaction category is required");
 		}
 		
-		return categoryRepository.findById(obj.getCategory().getId())
-				.orElseThrow(() -> new ResourceNotFoundException(obj.getCategory().getId()));
+		return categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException(categoryId));
 	}
 	
 	private void validateTransaction(Transaction obj) {
