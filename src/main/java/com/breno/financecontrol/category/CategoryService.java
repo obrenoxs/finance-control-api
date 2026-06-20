@@ -23,9 +23,23 @@ public class CategoryService {
 		return categoryRepository.findAll();
 	}
 	
+	public List<CategoryResponseDTO> findAllResponse(){
+		List<Category> list = findAll();
+		
+		return list.stream()
+				.map(CategoryResponseDTO::new)
+				.toList();
+	}
+	
 	public Category findById(Long id) {
-		Optional<Category> obj = categoryRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return categoryRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+	
+	public CategoryResponseDTO findByIdResponse(Long id) {
+		Category obj = findById(id);
+		
+		return new CategoryResponseDTO(obj);
 	}
 	
 	public Category create(Category category) {

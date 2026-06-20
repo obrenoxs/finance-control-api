@@ -30,14 +30,14 @@ public class CategoryController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Category>> findAll(){
-		List<Category> list = categoryService.findAll();
+	public ResponseEntity<List<CategoryResponseDTO>> findAll(){
+		List<CategoryResponseDTO> list = categoryService.findAllResponse();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Category> findById(@PathVariable Long id){
-		Category obj = categoryService.findById(id);
+	public ResponseEntity<CategoryResponseDTO> findById(@PathVariable Long id){
+		CategoryResponseDTO obj = categoryService.findByIdResponse(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
@@ -52,5 +52,4 @@ public class CategoryController {
 		obj = categoryService.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
-	
 }
