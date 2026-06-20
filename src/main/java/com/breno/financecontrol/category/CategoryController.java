@@ -23,8 +23,8 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping
-	public ResponseEntity<Category> create(@RequestBody Category category){
-		category = categoryService.create(category);
+	public ResponseEntity<Category> create(@RequestBody CategoryRequestDTO dto){
+		Category category = categoryService.create(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(category.getId()).toUri();
 		return ResponseEntity.created(uri).body(category);
 	}
@@ -48,8 +48,8 @@ public class CategoryController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj){
-		obj = categoryService.update(id, obj);
+	public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody CategoryRequestDTO dto){
+		Category obj = categoryService.update(id, dto);
 		return ResponseEntity.ok().body(obj);
 	}
 }

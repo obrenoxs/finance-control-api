@@ -42,14 +42,16 @@ public class CategoryService {
 		return new CategoryResponseDTO(obj);
 	}
 	
-	public Category create(Category category) {
-		Optional<Category> obj = categoryRepository.findByName(category.getName());
+	public Category create(CategoryRequestDTO dto) {
+		Optional<Category> obj = categoryRepository.findByName(dto.getName());
 		
 		if (obj.isPresent()) {
 			throw new BusinessException("Category already exists");
 		} 
 		
-		return categoryRepository.save(category);
+		Category entity = new Category(null, dto.getName());
+		
+		return categoryRepository.save(entity);
 	}
 	
 	public void delete(Long id) {
@@ -64,10 +66,10 @@ public class CategoryService {
 		categoryRepository.deleteById(id);
 	}
 	
-	public Category update(Long id, Category category) {
+	public Category update(Long id, CategoryRequestDTO dto) {
 		Category entity = findById(id);
 		
-		Optional<Category> categoryFound = categoryRepository.findByName(category.getName());
+		Optional<Category> categoryFound = categoryRepository.findByName(dto.getName());
 		
 		if (categoryFound.isPresent()) {
 			
@@ -78,12 +80,12 @@ public class CategoryService {
 			}
 		}
 		
-		updateData(entity, category);
+		copyDtoToEntity(entity, dto);
 		
 		return categoryRepository.save(entity);
 	}
 	
-	private void updateData(Category entity, Category obj) {
-		entity.setName(obj.getName());
+	private void copyDtoToEntity(Category entity, CategoryRequestDTO dto) {
+		entity.setName(dto.getName());
 	}
 }
