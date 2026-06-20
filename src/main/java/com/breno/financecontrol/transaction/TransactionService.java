@@ -21,7 +21,7 @@ public class TransactionService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	public Transaction create(TransactionRequestDTO dto) {
+	public TransactionResponseDTO create(TransactionRequestDTO dto) {
 		Transaction entity = new Transaction();
 		
 		copyDtoToEntity(entity, dto);
@@ -32,21 +32,29 @@ public class TransactionService {
 		
 		validateTransaction(entity);
 		
-		return transactionRepository.save(entity);
+		entity = transactionRepository.save(entity);
+		
+		TransactionResponseDTO obj = new TransactionResponseDTO(entity);
+		
+		return obj;
 	}
 	
-	public Transaction update(Long id, TransactionRequestDTO dto) {
+	public TransactionResponseDTO update(Long id, TransactionRequestDTO dto) {
 		Transaction entity = findById(id);
 		
 		Category category = validateAndGetCategory(dto.getCategoryId());
 	
-		entity.setCategory(category);
-	
 		copyDtoToEntity(entity, dto);
+		
+		entity.setCategory(category);
 		
 		validateTransaction(entity);
 		
-		return transactionRepository.save(entity);
+		entity = transactionRepository.save(entity);
+		
+		TransactionResponseDTO obj = new TransactionResponseDTO(entity);
+		
+		return obj;
 	}
 	
 	public List<Transaction> findAll() {
