@@ -1,4 +1,4 @@
-package com.breno.financecontrol.category;
+package com.breno.financecontrol.category.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,9 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.breno.financecontrol.category.dto.CategoryRequestDTO;
+import com.breno.financecontrol.category.dto.CategoryResponseDTO;
+import com.breno.financecontrol.category.entity.Category;
+import com.breno.financecontrol.category.repository.CategoryRepository;
 import com.breno.financecontrol.exception.BusinessException;
 import com.breno.financecontrol.exception.ResourceNotFoundException;
-import com.breno.financecontrol.transaction.TransactionRepository;
+import com.breno.financecontrol.transaction.repository.TransactionRepository;
 
 @Service
 public class CategoryService {

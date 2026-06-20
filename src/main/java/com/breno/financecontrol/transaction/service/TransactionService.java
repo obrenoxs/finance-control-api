@@ -1,4 +1,4 @@
-package com.breno.financecontrol.transaction;
+package com.breno.financecontrol.transaction.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -7,10 +7,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.breno.financecontrol.category.Category;
-import com.breno.financecontrol.category.CategoryRepository;
+import com.breno.financecontrol.category.entity.Category;
+import com.breno.financecontrol.category.repository.CategoryRepository;
 import com.breno.financecontrol.exception.BusinessException;
 import com.breno.financecontrol.exception.ResourceNotFoundException;
+import com.breno.financecontrol.transaction.dto.BalanceDTO;
+import com.breno.financecontrol.transaction.dto.TransactionRequestDTO;
+import com.breno.financecontrol.transaction.dto.TransactionResponseDTO;
+import com.breno.financecontrol.transaction.entity.Transaction;
+import com.breno.financecontrol.transaction.enums.TransactionType;
+import com.breno.financecontrol.transaction.repository.TransactionRepository;
 
 @Service
 public class TransactionService {

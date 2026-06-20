@@ -1,4 +1,4 @@
-package com.breno.financecontrol.transaction;
+package com.breno.financecontrol.transaction.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.breno.financecontrol.transaction.dto.BalanceDTO;
+import com.breno.financecontrol.transaction.dto.TransactionRequestDTO;
+import com.breno.financecontrol.transaction.dto.TransactionResponseDTO;
+import com.breno.financecontrol.transaction.service.TransactionService;
 
 @RestController
 @RequestMapping(value = "/transactions")

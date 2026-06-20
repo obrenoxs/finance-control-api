@@ -1,4 +1,4 @@
-package com.breno.financecontrol.category;
+package com.breno.financecontrol.category.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

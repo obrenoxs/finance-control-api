@@ -1,7 +1,9 @@
-package com.breno.financecontrol.transaction;
+package com.breno.financecontrol.transaction.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.breno.financecontrol.transaction.enums.TransactionType;
 
 public class TransactionRequestDTO {
 

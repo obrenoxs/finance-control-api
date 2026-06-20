@@ -1,4 +1,6 @@
-package com.breno.financecontrol.category;
+package com.breno.financecontrol.category.dto;
+
+import com.breno.financecontrol.category.entity.Category;
 
 public class CategoryResponseDTO {
 

@@ -1,4 +1,4 @@
-package com.breno.financecontrol.transaction;
+package com.breno.financecontrol.transaction.enums;
 
 public enum TransactionType {
 	INCOME,

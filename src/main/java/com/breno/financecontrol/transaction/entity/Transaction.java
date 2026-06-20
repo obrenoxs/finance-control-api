@@ -1,11 +1,12 @@
-package com.breno.financecontrol.transaction;
+package com.breno.financecontrol.transaction.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.breno.financecontrol.category.Category;
+import com.breno.financecontrol.category.entity.Category;
+import com.breno.financecontrol.transaction.enums.TransactionType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

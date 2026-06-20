@@ -1,4 +1,4 @@
-package com.breno.financecontrol.category;
+package com.breno.financecontrol.category.dto;
 
 public class CategoryRequestDTO {
 

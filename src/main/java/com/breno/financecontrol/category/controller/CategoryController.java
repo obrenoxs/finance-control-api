@@ -1,4 +1,4 @@
-package com.breno.financecontrol.category;
+package com.breno.financecontrol.category.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.breno.financecontrol.category.dto.CategoryRequestDTO;
+import com.breno.financecontrol.category.dto.CategoryResponseDTO;
+import com.breno.financecontrol.category.entity.Category;
+import com.breno.financecontrol.category.service.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
