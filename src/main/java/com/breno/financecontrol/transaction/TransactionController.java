@@ -36,8 +36,8 @@ public class TransactionController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Transaction> findById(@PathVariable Long id){
-		Transaction obj = transactionService.findById(id);
+	public ResponseEntity<TransactionResponseDTO> findById(@PathVariable Long id){
+		TransactionResponseDTO obj = transactionService.findByIdResponse(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
@@ -51,5 +51,11 @@ public class TransactionController {
 	public ResponseEntity<Transaction> update(@PathVariable Long id, @RequestBody TransactionRequestDTO dto){
 		Transaction obj = transactionService.update(id, dto);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping("/balance")
+	public ResponseEntity<BalanceDTO> getBalance(){
+		BalanceDTO balance = transactionService.getBalance();
+		return ResponseEntity.ok().body(balance);
 	}
 }

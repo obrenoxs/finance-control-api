@@ -3,7 +3,6 @@ package com.breno.financecontrol.transaction;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,8 +54,33 @@ public class TransactionService {
 	}
 	
 	public Transaction findById(Long id) {
-		Optional<Transaction> obj = transactionRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		    return transactionRepository.findById(id)
+		            .orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+	
+	public TransactionResponseDTO findByIdResponse(Long id) {
+		Transaction obj = findById(id);
+		
+		return new TransactionResponseDTO(obj);
+	}
+	
+	public BalanceDTO getBalance() {
+		List<Transaction> list = transactionRepository.findAll();
+		
+		BigDecimal income = BigDecimal.ZERO;
+		BigDecimal expense = BigDecimal.ZERO;
+		
+		for (Transaction transaction : list) {
+			if (transaction.getType() == TransactionType.INCOME) {
+				income = income.add(transaction.getAmount());
+			} else if (transaction.getType() == TransactionType.EXPENSE){
+				expense = expense.add(transaction.getAmount());
+			}
+		}
+		
+		BigDecimal balance = income.subtract(expense);
+		
+		return new BalanceDTO(income, expense, balance);
 	}
 	
 	public void delete(Long id) {
