@@ -53,6 +53,14 @@ public class TransactionService {
 		return transactionRepository.findAll();
 	}
 	
+	public List<TransactionResponseDTO> findAllResponse(){
+		List<Transaction> list = findAll();
+		
+		return list.stream()
+				.map(TransactionResponseDTO::new)
+				.toList();
+	}
+	
 	public Transaction findById(Long id) {
 		    return transactionRepository.findById(id)
 		            .orElseThrow(() -> new ResourceNotFoundException(id));
