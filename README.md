@@ -167,4 +167,4 @@ Este projeto foi desenvolvido para praticar:
 
 ## 👨‍💻 Author
 
-Developed by Breno Souza as a personal learning project focused on backend development with Java and Spring Boot.
+Developed by Breno Souza
