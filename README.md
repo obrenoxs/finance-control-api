@@ -1,9 +1,5 @@
 # 💰 Finance Control API
 
-## 🚧 Status do Projeto
-
-Em desenvolvimento — novas funcionalidades e melhorias estão sendo adicionadas continuamente.
-
 ---
 
 # 📌 Sobre o Projeto
